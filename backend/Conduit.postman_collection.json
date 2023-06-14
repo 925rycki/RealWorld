@@ -106,6 +106,58 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "Current User",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var responseJSON = JSON.parse(responseBody);",
+                  "",
+                  "tests['Response contains \"user\" property'] = responseJSON.hasOwnProperty('user');",
+                  "",
+                  "var user = responseJSON.user || {};",
+                  "",
+                  "tests['User has \"email\" property'] = user.hasOwnProperty('email');",
+                  "tests['User has \"username\" property'] = user.hasOwnProperty('username');",
+                  "tests['User has \"bio\" property'] = user.hasOwnProperty('bio');",
+                  "tests['User has \"image\" property'] = user.hasOwnProperty('image');",
+                  "tests['User has \"token\" property'] = user.hasOwnProperty('token');",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest"
+              },
+              {
+                "key": "Authorization",
+                "value": "Token {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "{{APIURL}}/user",
+              "host": ["{{APIURL}}"],
+              "path": ["user"]
+            }
+          },
+          "response": []
         }
       ]
     }
