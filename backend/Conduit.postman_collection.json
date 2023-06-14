@@ -1,0 +1,113 @@
+{
+  "info": {
+    "_postman_id": "0574ad8a-a525-43ae-8e1e-5fd9756037f4",
+    "name": "Conduit",
+    "description": "Collection for testing the Conduit API\n\nhttps://github.com/gothinkster/realworld",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Register",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "if (!(environment.isIntegrationTest)) {",
+                  "var responseJSON = JSON.parse(responseBody);",
+                  "",
+                  "tests['Response contains \"user\" property'] = responseJSON.hasOwnProperty('user');",
+                  "",
+                  "var user = responseJSON.user || {};",
+                  "",
+                  "tests['User has \"email\" property'] = user.hasOwnProperty('email');",
+                  "tests['User has \"username\" property'] = user.hasOwnProperty('username');",
+                  "tests['User has \"bio\" property'] = user.hasOwnProperty('bio');",
+                  "tests['User has \"image\" property'] = user.hasOwnProperty('image');",
+                  "tests['User has \"token\" property'] = user.hasOwnProperty('token');",
+                  "}",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"user\":{\"email\":\"{{EMAIL}}\", \"password\":\"{{PASSWORD}}\", \"username\":\"{{USERNAME}}\"}}"
+            },
+            "url": {
+              "raw": "{{APIURL}}/users",
+              "host": ["{{APIURL}}"],
+              "path": ["users"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "var responseJSON = JSON.parse(responseBody);",
+                  "",
+                  "tests['Response contains \"user\" property'] = responseJSON.hasOwnProperty('user');",
+                  "",
+                  "var user = responseJSON.user || {};",
+                  "",
+                  "tests['User has \"email\" property'] = user.hasOwnProperty('email');",
+                  "tests['User has \"username\" property'] = user.hasOwnProperty('username');",
+                  "tests['User has \"bio\" property'] = user.hasOwnProperty('bio');",
+                  "tests['User has \"image\" property'] = user.hasOwnProperty('image');",
+                  "tests['User has \"token\" property'] = user.hasOwnProperty('token');",
+                  ""
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "X-Requested-With",
+                "value": "XMLHttpRequest"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"user\":{\"email\":\"{{EMAIL}}\", \"password\":\"{{PASSWORD}}\"}}"
+            },
+            "url": {
+              "raw": "{{APIURL}}/users/login",
+              "host": ["{{APIURL}}"],
+              "path": ["users", "login"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
