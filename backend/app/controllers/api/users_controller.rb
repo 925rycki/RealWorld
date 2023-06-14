@@ -1,5 +1,43 @@
 module Api
   class UsersController < ApplicationController
+    def show
+      # CookieからJWTを取得
+      token = cookies[:token]
+
+      # 秘密鍵の取得
+      rsa_private = OpenSSL::PKey::RSA.new(Rails.root.join('auth/service.key').read)
+
+      # JWTのデコード。JWTからペイロードが取得できない場合は認証エラーにする
+      begin
+        decoded_token = JWT.decode(token, rsa_private, true, { algorithm: 'RS256' })
+      rescue JWT::DecodeError, JWT::ExpiredSignature, JWT::VerificationError
+        return render json: { message: 'unauthorized' }, status: :unauthorized
+      end
+
+      # subクレームからユーザーIDを取得
+      user_id = decoded_token.first["sub"]
+
+      # ユーザーを検索
+      user = User.find(user_id)
+
+      # userが取得できた場合はユーザー情報を返す、取得できない場合は認証エラー
+      if user.nil?
+        render json: { message: 'unauthorized' }, status: :unauthorized
+      else
+        response = {
+          user: {
+            email: user.email,
+            token:,
+            username: user.username,
+            bio: user.bio,
+            image: user.image
+          }
+        }
+  
+        render json: response, status: :ok
+      end
+    end
+
     def create
       # ユーザの作成
       user = User.create(username: params[:user][:username], email: params[:user][:email], password: params[:user][:password])
