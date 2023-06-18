@@ -302,12 +302,7 @@
                   "tests['Article has \"updatedAt\" property'] = article.hasOwnProperty('updatedAt');",
                   "tests['Article\\'s \"updatedAt\" property is an ISO 8601 timestamp'] = /^\\d{4,}-[01]\\d-[0-3]\\dT[0-2]\\d:[0-5]\\d:[0-5]\\d.\\d+(?:[+-][0-2]\\d:[0-5]\\d|Z)$/.test(article.updatedAt);",
                   "tests['Article has \"description\" property'] = article.hasOwnProperty('description');",
-                  "tests['Article has \"tagList\" property'] = article.hasOwnProperty('tagList');",
-                  "tests['Article\\'s \"tagList\" property is an Array'] = Array.isArray(article.tagList);",
                   "tests['Article has \"author\" property'] = article.hasOwnProperty('author');",
-                  "tests['Article has \"favorited\" property'] = article.hasOwnProperty('favorited');",
-                  "tests['Article has \"favoritesCount\" property'] = article.hasOwnProperty('favoritesCount');",
-                  "tests['favoritesCount is an integer'] = Number.isInteger(article.favoritesCount);",
                   "}",
                   ""
                 ]

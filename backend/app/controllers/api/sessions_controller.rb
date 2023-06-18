@@ -1,7 +1,6 @@
 module Api
   class SessionsController < ApplicationController
     def create
-      # ユーザの取得
       user = User.find_by(email: params[:user][:email])&.authenticate(params[:user][:password])
 
       # userがnilの場合の例外処理
