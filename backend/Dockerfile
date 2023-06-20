@@ -21,7 +21,7 @@ RUN chmod +x /usr/bin/entrypoint.sh
 RUN apt-get update && \
     apt-get install -y curl && \
     curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
-    apt-get install -y nodejs npmy
+    apt-get install -y nodejs npm
     
 ENTRYPOINT ["entrypoint.sh"]
 
